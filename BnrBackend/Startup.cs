@@ -38,7 +38,7 @@ namespace BnrBackend
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection(); //Came with template and makes testing in Postman difficult
 
             app.UseRouting();
 

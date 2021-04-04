@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -64,6 +65,14 @@ namespace BnrBackend.Test.Integration.Controllers
             var result = await _client.GetStringAsync("api/posts");
             var actual = JsonSerializer.Deserialize<List<Post>>(result, _jsonSerializerOptions);
             actual.Should().BeEquivalentTo(_posts);
+        }
+
+        [Test]
+        public async Task GetsAllPostsForUser()
+        {
+            var result = await _client.GetStringAsync($"api/posts?userId={_posts[0].User.Id}");
+            var actual = JsonSerializer.Deserialize<List<Post>>(result, _jsonSerializerOptions);
+            actual.Should().BeEquivalentTo(_posts.Where(p=>p.User == _posts[0].User));
         }
 
         [Test]

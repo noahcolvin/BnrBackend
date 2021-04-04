@@ -40,9 +40,17 @@ namespace BnrBackend.Test.Integration.Repositories
         [Test]
         public async Task GetsAllPostsWithUsers()
         {
-            var result = await _subject.GetAllPosts();
+            var result = await _subject.GetAllPosts(null);
 
             result.Should().BeEquivalentTo(_posts);
+        }
+
+        [Test]
+        public async Task GetsAllPostsWithUsersFiltered()
+        {
+            var result = await _subject.GetAllPosts(1);
+
+            result.Should().BeEquivalentTo(new List<Post> { _posts[0] });
         }
 
         [Test]

@@ -6,7 +6,7 @@ namespace BnrBackend.Repositories
 {
     public interface IPostRepository
     {
-        Task<List<Post>> GetAllPosts();
+        Task<List<Post>> GetAllPosts(int? userId);
         Task<Post> GetPost(int id);
         Task AddPost(Post post);
         Task UpdatePost(Post post);

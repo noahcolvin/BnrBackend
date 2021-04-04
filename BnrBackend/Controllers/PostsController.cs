@@ -19,9 +19,9 @@ namespace BnrBackend.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
+        public async Task<ActionResult<IEnumerable<Post>>> GetPosts(int? userId)
         {
-            return await _postRepository.GetAllPosts();
+            return await _postRepository.GetAllPosts(userId);
         }
         
         [HttpGet("{id}")]

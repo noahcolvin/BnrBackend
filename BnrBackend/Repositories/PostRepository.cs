@@ -16,9 +16,10 @@ namespace BnrBackend.Repositories
             _context = context;
         }
 
-        public async Task<List<Post>> GetAllPosts()
+        public async Task<List<Post>> GetAllPosts(int? userId)
         {
             return await _context.Posts
+                .Where(p => p.User.Id == userId || userId == null)
                 .Include(p => p.User)
                 .ToListAsync();
         }

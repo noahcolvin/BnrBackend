@@ -28,8 +28,8 @@ namespace BnrBackend.Test.Unit.Controllers
         [Test]
         public async Task GetPosts_GetsAllPosts()
         {
-            await _subject.GetPosts();
-            _repoMock.Verify(r => r.GetAllPosts());
+            await _subject.GetPosts(10);
+            _repoMock.Verify(r => r.GetAllPosts(10));
         }
 
         [Test]
