@@ -11,5 +11,6 @@ namespace BnrBackend.Repositories
         Task AddPost(Post post);
         Task UpdatePost(Post post);
         Task DeletePost(Post post);
+        Task<bool> PostExists(int id);
     }
 }

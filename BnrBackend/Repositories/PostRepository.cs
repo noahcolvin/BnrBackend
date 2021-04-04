@@ -56,5 +56,10 @@ namespace BnrBackend.Repositories
             _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<bool> PostExists(int id)
+        {
+            return await _context.Posts.AnyAsync(e => e.Id == id);
+        }
     }
 }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BnrBackend", "BnrBackend\Bn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BnrBackend.Test.Integration", "BnrBackend.Test.Integration\BnrBackend.Test.Integration.csproj", "{C3ED9A5B-3AA9-4C19-8368-308485C45305}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BnrBackend.Test.Unit", "BnrBackend.Test.Unit\BnrBackend.Test.Unit.csproj", "{F28FB65B-A520-462B-B59D-5EC3835FE038}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C3ED9A5B-3AA9-4C19-8368-308485C45305}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3ED9A5B-3AA9-4C19-8368-308485C45305}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3ED9A5B-3AA9-4C19-8368-308485C45305}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F28FB65B-A520-462B-B59D-5EC3835FE038}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F28FB65B-A520-462B-B59D-5EC3835FE038}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F28FB65B-A520-462B-B59D-5EC3835FE038}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F28FB65B-A520-462B-B59D-5EC3835FE038}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

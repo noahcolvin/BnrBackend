@@ -101,6 +101,13 @@ namespace BnrBackend.Test.Integration.Repositories
             actual.Should().BeNull();
         }
 
+        [TestCase(1, ExpectedResult = true)]
+        [TestCase(911, ExpectedResult = false)]
+        public async Task<bool> IndicatesPostExists(int id)
+        {
+            return await _subject.PostExists(id);
+        }
+
         private async Task SeedPosts()
         {
             var users = new List<User>
