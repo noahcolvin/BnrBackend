@@ -25,7 +25,14 @@ namespace BnrBackend.Test.Integration.Controllers
         private HttpClient _client;
         private List<Post> _posts;
         private readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-        
+
+        static Post[] MissingDataCases =
+        {
+            new Post { Title = null, Body = "McPost", User = new User { Id = 1 } },
+            new Post { Title = "Posty", Body = null, User = new User { Id = 1 } },
+            new Post { Title = "Posty", Body = "McPost", User = null }
+        };
+
         [SetUp]
         public void Setup()
         {
@@ -72,7 +79,7 @@ namespace BnrBackend.Test.Integration.Controllers
         {
             var result = await _client.GetStringAsync($"api/posts?userId={_posts[0].User.Id}");
             var actual = JsonSerializer.Deserialize<List<Post>>(result, _jsonSerializerOptions);
-            actual.Should().BeEquivalentTo(_posts.Where(p=>p.User == _posts[0].User));
+            actual.Should().BeEquivalentTo(_posts.Where(p => p.User == _posts[0].User));
         }
 
         [Test]
@@ -102,6 +109,15 @@ namespace BnrBackend.Test.Integration.Controllers
             actual.Should().BeEquivalentTo(post, o => o.Excluding(x => x.Id).Excluding(x => x.User).Including(x => x.User.Id));
         }
 
+        [TestCaseSource(nameof(MissingDataCases))]
+        public async Task DoesNotAddEmptyPostMissingRequiredData(Post post)
+        {
+            var jsonPost = JsonSerializer.Serialize(post, _jsonSerializerOptions);
+
+            var result = await _client.PostAsync("api/posts", new StringContent(jsonPost, Encoding.UTF8, "application/json"));
+            result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        }
+
         [Test]
         public async Task UpdatesPost()
         {
@@ -114,6 +130,19 @@ namespace BnrBackend.Test.Integration.Controllers
 
             await using var context = GetNewContext();
             (await context.Posts.FindAsync(_posts[2].Id)).Title.Should().Be("Change me");
+        }
+
+        [TestCaseSource(nameof(MissingDataCases))]
+        public async Task DoesNotUpdatePostMissingRequiredData(Post postMissingData)
+        {
+            var post = _posts[2];
+            post.Title = postMissingData.Title;
+            post.Body = postMissingData.Body;
+            post.User = postMissingData.User;
+            var jsonPost = JsonSerializer.Serialize(post, _jsonSerializerOptions);
+
+            var result = await _client.PutAsync($"api/posts/{post.Id}", new StringContent(jsonPost, Encoding.UTF8, "application/json"));
+            result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
         [Test]

@@ -38,6 +38,9 @@ namespace BnrBackend.Controllers
         [HttpPost]
         public async Task<ActionResult<Post>> PostPost(Post post)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(post);
+
             if (await _postRepository.PostExists(post.Id))
                 return BadRequest();
 
@@ -49,6 +52,9 @@ namespace BnrBackend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPost(int id, Post post)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(post);
+
             if (id != post.Id)
                 return BadRequest();
 
